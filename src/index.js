@@ -1,1 +1,1 @@
-import './block';
+import './astronomy-picture-of-the-day';
