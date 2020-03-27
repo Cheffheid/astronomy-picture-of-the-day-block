@@ -1,0 +1,16 @@
+{
+  "name": "cheffism/astronomy-picture-of-the-day",
+  "description": "A block for WordPress that will let you display NASA's Astronomy Picture of the Day on your website.",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Jeffrey de Wit",
+      "email": "Jeffrey.deWit@gmail.com"
+    }
+  ],
+  "require": {
+  },
+  "require-dev": {
+    "webdevstudios/php-coding-standards": "^1.0"
+  }
+}
