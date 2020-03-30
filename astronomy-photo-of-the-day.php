@@ -16,6 +16,8 @@ namespace Cheffism\AstronomyPictureOfTheDay;
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+require plugin_dir_path( __FILE__ ) . 'src/astronomy-picture-of-the-day/index.php';
+
 /**
  * Register the block with WordPress.
  *
@@ -69,9 +71,10 @@ function register_block() {
 
 	// Register block with WordPress.
 	register_block_type( 'cheffism/astronomy-picture-of-the-day', array(
-		'editor_script' => 'astronomy-picture-of-the-day-editor-script',
-		'editor_style'  => 'astronomy-picture-of-the-day-editor-style',
-		'style'         => 'astronomy-picture-of-the-day-style',
+		'editor_script'   => 'astronomy-picture-of-the-day-editor-script',
+		'editor_style'    => 'astronomy-picture-of-the-day-editor-style',
+		'style'           => 'astronomy-picture-of-the-day-style',
+		'render_callback' => '\\Cheffism\\AstronomyPictureOfTheDayBlock\\render_astronomy_picture_of_the_day',
 	) );
 
 	// Register frontend script.
