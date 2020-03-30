@@ -35,6 +35,23 @@ function render_astronomy_picture_of_the_day() {
  * @return WPError|Object Returns a WP_Error with API error details, or an object with all the API data.
  */
 function retrieve_astronomy_picture_of_the_day() {
+	$today          = date( 'Y-m-d' );
+	$apod_transient = get_transient( 'apod-' . $today );
+
+	if ( ! $apod_transient ) {
+		$picture_data = retrieve_astronomy_picture_of_the_day_api_data();
+
+		if ( ! is_wp_error( $picture_data ) ) {
+			set_transient( 'apod-' . $today, $picture_data, 24 * HOUR_IN_SECONDS );
+		}
+
+		return $picture_data;
+	}
+
+	return $apod_transient;
+}
+
+function retrieve_astronomy_picture_of_the_day_api_data() {
 	$api_key    = 'DEMO_KEY';
 	$remote_url = 'https://api.nasa.gov/planetary/apod?api_key=' . $api_key;
 
