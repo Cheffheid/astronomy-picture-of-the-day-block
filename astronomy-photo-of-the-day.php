@@ -50,6 +50,15 @@ function register_block() {
 		true
 	);
 
+	wp_localize_script(
+		'astronomy-picture-of-the-day-editor-script',
+		'apod',
+		array(
+			'api_key'       => get_option( 'apod_api_key' ),
+			'api_key_error' => esc_html__( 'This block requires an API key to be set up. Please ensure that you have one set up on the settings page.', 'astronomy-picture-of-the-day' )
+		)
+	);
+
 	// Register editor style.
 	if ( file_exists( plugin_dir_path( __FILE__ ) . $editor_style ) ) {
 		wp_register_style(

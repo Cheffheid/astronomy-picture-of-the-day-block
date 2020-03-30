@@ -13,7 +13,11 @@ export default class AstronomyPictureEdit extends Component {
 	}
 
 	componentDidMount() {
-		getPictureOfTheDay( 'DEMO_KEY' )
+		if ( ! apod.api_key ) {
+			return;
+		}
+
+		getPictureOfTheDay( apod.api_key )
 			.then( ( pictureURL ) => {
 				this.setState( {
 					pictureURL: pictureURL
@@ -23,6 +27,14 @@ export default class AstronomyPictureEdit extends Component {
 
 	render() {
 		const { pictureURL } = this.state;
+
+		if ( ! apod.api_key ) {
+			return (
+				<Fragment>
+					<p>{ apod.api_key_error }</p>
+				</Fragment>
+			)
+		}
 
 		if ( ! pictureURL ) {
 			return <Spinner />;
