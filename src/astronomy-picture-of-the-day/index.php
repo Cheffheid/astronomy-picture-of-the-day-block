@@ -1,4 +1,9 @@
 <?php
+/**
+ * Astronomy Picture of the Day frontend PHP.
+ *
+ * @package Cheffism\AstronomyPictureOfTheDay
+ */
 
 namespace Cheffism\AstronomyPictureOfTheDayBlock;
 
@@ -30,7 +35,8 @@ function render_astronomy_picture_of_the_day() {
 
 
 /**
- * Retrieve the picture of the day URL.
+ * Retrieve the picture of the day data. This will either retrieve the data from the transient if it's set,
+ * or retrieve fresh data from the API.
  *
  * @return WPError|Object Returns a WP_Error with API error details, or an object with all the API data.
  */
@@ -39,18 +45,18 @@ function retrieve_astronomy_picture_of_the_day() {
 	$apod_transient = get_transient( 'apod-' . $today );
 
 	if ( ! $apod_transient ) {
-		$picture_data = retrieve_astronomy_picture_of_the_day_api_data();
-
-		if ( ! is_wp_error( $picture_data ) ) {
-			set_transient( 'apod-' . $today, $picture_data, 24 * HOUR_IN_SECONDS );
-		}
-
-		return $picture_data;
+		return retrieve_astronomy_picture_of_the_day_api_data();
 	}
 
 	return $apod_transient;
 }
 
+
+/**
+ * Retrieve the picture of the day data from the API.
+ *
+ * @return WPError|Object Returns a WP_Error with API error details, or an object with all the API data.
+ */
 function retrieve_astronomy_picture_of_the_day_api_data() {
 	$api_key    = 'DEMO_KEY';
 	$remote_url = 'https://api.nasa.gov/planetary/apod?api_key=' . $api_key;
@@ -62,5 +68,18 @@ function retrieve_astronomy_picture_of_the_day_api_data() {
 		return new WP_Error( $response_body->error->code, $response_body->error->message );
 	}
 
+	save_astronomy_picture_of_the_day_api_data( $response_body );
+
 	return $response_body;
+}
+
+
+/**
+ * Save API response data to a transient for 24 hours.
+ *
+ * @param Object $api_data Object of API data that should be stored.
+ * @return void
+ */
+function save_astronomy_picture_of_the_day_api_data( $api_data ) {
+	set_transient( 'apod-' . $api_data->date, $api_data, 24 * HOUR_IN_SECONDS );
 }
