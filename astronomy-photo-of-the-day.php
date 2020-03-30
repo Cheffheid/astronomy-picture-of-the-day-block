@@ -17,6 +17,7 @@ namespace Cheffism\AstronomyPictureOfTheDay;
 defined( 'ABSPATH' ) || exit;
 
 require plugin_dir_path( __FILE__ ) . 'src/astronomy-picture-of-the-day/index.php';
+require plugin_dir_path( __FILE__ ) . 'settings/apod_settings.php';
 
 /**
  * Register the block with WordPress.
