@@ -27,7 +27,6 @@
   "homepage": "https://github.com/WebDevStudios/wds-block-starter#readme",
   "dependencies": {},
   "devDependencies": {
-    "@webdevstudios/css-coding-standards": "^1.0.0",
     "@webdevstudios/js-coding-standards": "~1.0.2",
     "@wordpress/scripts": "^7.1.2",
     "clean-webpack-plugin": "^3.0.0",
