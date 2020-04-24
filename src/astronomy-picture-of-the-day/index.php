@@ -22,14 +22,24 @@ function render_astronomy_picture_of_the_day() {
 		return '';
 	}
 
+	// Use the SD version by default.
+	$picture_url = $picture_data->url;
+
 	ob_start();
-	?>
 
-	<p class="astronomy-picture-of-the-day">
-		<img src="<?php echo esc_url( $picture_data->hdurl ); ?>" alt="" />
-	</p>
+	// If there is no hdurl and the url is YouTube, then the APOD is most likely a video instead.
+	if ( ! property_exists( $picture_data, 'hdurl' ) && url_is_youtube( $picture_url ) ) {
+		require dirname( __FILE__ ) . '/template-parts/youtube-video.php';
 
-	<?php
+		return ob_get_clean();
+	}
+
+	// If there is a hdurl, and it's not a video, then reset the picture_url to the hd variant.
+	if ( property_exists( $picture_data->hdurl ) ) {
+		$picture_url = $picture_data->hdurl;
+	}
+
+	require dirname( __FILE__ ) . '/template-parts/image.php';
 	return ob_get_clean();
 }
 
@@ -82,4 +92,19 @@ function retrieve_astronomy_picture_of_the_day_api_data() {
  */
 function save_astronomy_picture_of_the_day_api_data( $api_data ) {
 	set_transient( 'apod-' . $api_data->date, $api_data, 24 * HOUR_IN_SECONDS );
+}
+
+/**
+ * Check if a URL is a YouTube URL.
+ *
+ * @param string $url URL string.
+ * @return Boolean Returns true if the string contains youtube.com.
+ */
+function url_is_youtube( $url = '' ) {
+
+	if ( ! $url || empty( $url ) ) {
+		return false;
+	}
+
+	return preg_match( '#^https?://(?:www\.)?youtube.com#', $url );
 }
