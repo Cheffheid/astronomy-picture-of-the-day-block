@@ -40,10 +40,29 @@ export default class AstronomyPictureEdit extends Component {
 			return <Spinner />;
 		}
 
+		if ( this.is_youtube_url( pictureURL ) ) {
+			return (
+				<Fragment>
+					<iframe src={ pictureURL } width="610" height="343" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</Fragment>
+			);
+		}
+
 		return (
 			<Fragment>
 				<img src={ pictureURL } alt="" />
 			</Fragment>
 		)
+
+	}
+
+	is_youtube_url( url = '' ) {
+		if ( ! url || '' === url ) {
+			return false;
+		}
+
+		const regex = new RegExp( '^https?:\/\/(?:www\.)?youtube.com', 'gi' );
+
+		return Array.isArray( url.match( regex ) );
 	}
 }
