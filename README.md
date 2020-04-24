@@ -42,5 +42,8 @@ For more info on the WordPress Block API, check out the [Gutenberg Handbook](htt
 
 # Changelog
 
-## 0.0.1
+## 0.2.0
+- Added YouTube video support (APOD 04/24/2020)
+
+## 0.1.0
 - Initial block setup.

@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     Astronomy Picture Of The Day
  * Description:     A block for WordPress that will let you display NASA's Astronomy Picture of the Day on your website.
- * Version:         0.1.0
+ * Version:         0.2.0
  * Author:          Jeffrey de Wit
  * License:         GPL-2.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
