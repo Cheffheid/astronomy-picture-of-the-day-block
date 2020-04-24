@@ -28,7 +28,7 @@ function render_astronomy_picture_of_the_day() {
 	ob_start();
 
 	// If there is no hdurl and the url is YouTube, then the APOD is most likely a video instead.
-	if ( ! property_exists( $picture_data, 'hdurl' ) && url_is_youtube( $picture_url ) ) {
+	if ( ! property_exists( $picture_data, 'hdurl' ) && is_youtube_url( $picture_url ) ) {
 		require dirname( __FILE__ ) . '/template-parts/youtube-video.php';
 
 		return ob_get_clean();
@@ -100,7 +100,7 @@ function save_astronomy_picture_of_the_day_api_data( $api_data ) {
  * @param string $url URL string.
  * @return Boolean Returns true if the string contains youtube.com.
  */
-function url_is_youtube( $url = '' ) {
+function is_youtube_url( $url = '' ) {
 
 	if ( ! $url || empty( $url ) ) {
 		return false;
