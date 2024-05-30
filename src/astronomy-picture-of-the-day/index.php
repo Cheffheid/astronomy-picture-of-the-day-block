@@ -35,7 +35,7 @@ function render_astronomy_picture_of_the_day() {
 	}
 
 	// If there is a hdurl, and it's not a video, then reset the picture_url to the hd variant.
-	if ( property_exists( $picture_data->hdurl ) ) {
+	if ( property_exists( $picture_data, 'hdurl' ) ) {
 		$picture_url = $picture_data->hdurl;
 	}
 
