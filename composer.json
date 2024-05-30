@@ -8,9 +8,14 @@
       "email": "Jeffrey.deWit@gmail.com"
     }
   ],
-  "require": {
-  },
   "require-dev": {
-    "webdevstudios/php-coding-standards": "^1.0"
+    "wp-coding-standards/wpcs": "^3.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "phpcompatibility/phpcompatibility-wp": "*"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }
