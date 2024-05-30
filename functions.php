@@ -1,48 +1,9 @@
 <?php
 /**
- * Astronomy Picture of the Day frontend PHP.
- *
- * @package Cheffism\AstronomyPictureOfTheDay
+ * Utility functions for this block.
  */
 
-namespace Cheffism\AstronomyPictureOfTheDayBlock;
-
-use WP_Error;
-
-/**
- * Frontend callback for rendering this block.
- *
- * @param array $attributes Array of the block's saved attributes.
- * @return string HTML markup for the block's frontend.
- */
-function render_astronomy_picture_of_the_day() {
-	$picture_data = retrieve_astronomy_picture_of_the_day();
-
-	if ( is_wp_error( $picture_data ) ) {
-		return '';
-	}
-
-	// Use the SD version by default.
-	$picture_url = $picture_data->url;
-
-	ob_start();
-
-	// If there is no hdurl and the url is YouTube, then the APOD is most likely a video instead.
-	if ( ! property_exists( $picture_data, 'hdurl' ) && is_youtube_url( $picture_url ) ) {
-		require dirname( __FILE__ ) . '/template-parts/youtube-video.php';
-
-		return ob_get_clean();
-	}
-
-	// If there is a hdurl, and it's not a video, then reset the picture_url to the hd variant.
-	if ( property_exists( $picture_data, 'hdurl' ) ) {
-		$picture_url = $picture_data->hdurl;
-	}
-
-	require dirname( __FILE__ ) . '/template-parts/image.php';
-	return ob_get_clean();
-}
-
+namespace Cheffism\AstronomyPictureOfTheDay;
 
 /**
  * Retrieve the picture of the day data. This will either retrieve the data from the transient if it's set,
@@ -61,7 +22,6 @@ function retrieve_astronomy_picture_of_the_day() {
 	return $apod_transient;
 }
 
-
 /**
  * Retrieve the picture of the day data from the API.
  *
@@ -75,14 +35,13 @@ function retrieve_astronomy_picture_of_the_day_api_data() {
 	$response_body = json_decode( $response['body'] );
 
 	if ( 200 !== $response['response']['code'] ) {
-		return new WP_Error( $response_body->error->code, $response_body->error->message );
+		return new \WP_Error( $response_body->error->code, $response_body->error->message );
 	}
 
 	save_astronomy_picture_of_the_day_api_data( $response_body );
 
 	return $response_body;
 }
-
 
 /**
  * Save API response data to a transient for 24 hours.

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "cheffism/astronomy-picture-of-the-day",
+  "version": "1.0.0",
+  "title": "Astronomy Picture of the Day",
+  "category": "widgets",
+  "icon": "admin-site-alt3",
+  "description": "Display NASA's Astronomy Picture of the Day in a block on the site.",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "cheffism-apod",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./render.php",
+  "viewScript": ""
+}
