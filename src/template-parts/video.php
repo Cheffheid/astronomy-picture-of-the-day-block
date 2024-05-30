@@ -5,35 +5,17 @@
  * @package Cheffism\AstronomyPictureOfTheDay
  */
 
-$manual_embed = false;
+$embed_wrap_class = 'cheffism-apod__video-wrap';
 
 if ( strpos( $picture_url, '/embed' ) ) {
-	$youtube_embed = sprintf( '<iframe src="%s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', $picture_url );
-	$manual_embed  = true;
+	$youtube_embed     = sprintf( '<iframe src="%s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', $picture_url );
+	$embed_wrap_class .= ' manual-embed';
 } else {
 	$youtube_embed = wp_oembed_get( $picture_url );
 }
 ?>
 <div class="cheffism-apod">
-	<?php if ( $manual_embed ) : ?>
-	<style>
-		.cheffism-apod__video-wrap {
-			overflow: hidden;
-			position: relative;
-			padding-bottom: 56.25%; /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */
-		}
-
-		.cheffism-apod__video-wrap iframe {
-			height: 100%;
-			left: 0;
-			position: absolute;
-			top: 0;
-			width: 100%;
-		}
-	</style>
-	<?php endif; ?>
-
-	<div class="cheffism-apod__video-wrap">
+	<div class="<?php echo esc_attr( $embed_wrap_class ); ?>">
 		<?php
 			echo wp_kses(
 				$youtube_embed,
