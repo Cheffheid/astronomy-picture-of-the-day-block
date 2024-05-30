@@ -1,4 +1,9 @@
 <?php
+/**
+ * Server side render template for the block.
+ *
+ * @package Cheffism\AstronomyPictureOfTheDay
+ */
 
 namespace Cheffism\AstronomyPictureOfTheDay;
 

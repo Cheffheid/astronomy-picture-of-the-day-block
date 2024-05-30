@@ -78,21 +78,27 @@ function render_apod_settings_page() {
  * @return void
  */
 function render_apod_api_settings_section() {
-	$link_html = '<a href="https://api.nasa.gov/">https://api.nasa.gov/</a>'
+	$link_url = 'https://api.nasa.gov/';
+
 	?>
 	<p>
 		<?php
-			/* translators: The wildcard will render to an anchor tag that will link to the NASA website. */
 			printf(
-				esc_html__( 'You can read more about the restrictions for the API, as well as register for an API key, at %1$s.', 'cheffism-apod' ),
-				$link_html
+				/* translators: The wildcard will render to an anchor tag that will link to the NASA website. */
+				wp_kses_post( 'You can read more about the restrictions for the API, as well as register for an API key, at <a href="%1$s">%1$s</a>.', 'cheffism-apod' ),
+				esc_url( $link_url )
 			);
 		?>
 	</p>
 	<?php
 }
 
-function render_apod_api_key_field( $arguments ) {
+/**
+ * Render the API Key settings field.
+ *
+ * @return void
+ */
+function render_apod_api_key_field() {
 	?>
 	<input
 		name="apod_api_key"

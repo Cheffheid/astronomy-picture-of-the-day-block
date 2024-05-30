@@ -1,6 +1,8 @@
 <?php
 /**
  * Utility functions for this block.
+ *
+ * @package Cheffism\AstronomyPictureOfTheDay
  */
 
 namespace Cheffism\AstronomyPictureOfTheDay;
@@ -12,7 +14,7 @@ namespace Cheffism\AstronomyPictureOfTheDay;
  * @return WPError|Object Returns a WP_Error with API error details, or an object with all the API data.
  */
 function retrieve_astronomy_picture_of_the_day() {
-	$today          = date( 'Y-m-d' );
+	$today          = gmdate( 'Y-m-d' );
 	$apod_transient = get_transient( 'apod-' . $today );
 
 	if ( ! $apod_transient ) {

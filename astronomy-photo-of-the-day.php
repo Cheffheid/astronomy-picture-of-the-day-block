@@ -17,8 +17,14 @@ namespace Cheffism\AstronomyPictureOfTheDay;
 defined( 'ABSPATH' ) || exit;
 
 require plugin_dir_path( __FILE__ ) . 'functions.php';
-require plugin_dir_path( __FILE__ ) . 'settings/apod_settings.php';
+require plugin_dir_path( __FILE__ ) . 'settings/apod-settings.php';
 
+/**
+ * Registers the block with the block.json in the /build folder.
+ * Also runs wp_localize_script on the editor script to make the API key available to the editor.
+ *
+ * @return void
+ */
 function register_apod_block() {
 	register_block_type( __DIR__ . '/build' );
 
@@ -27,7 +33,7 @@ function register_apod_block() {
 		'apod',
 		array(
 			'api_key'       => get_option( 'apod_api_key' ),
-			'api_key_error' => esc_html__( 'This block requires an API key to be set up. Please ensure that you have one set up on the settings page.', 'cheffism-apod' )
+			'api_key_error' => esc_html__( 'This block requires an API key to be set up. Please ensure that you have one set up on the settings page.', 'cheffism-apod' ),
 		)
 	);
 }

@@ -31,7 +31,7 @@ if ( strpos( $picture_url, '/embed' ) ) {
 			width: 100%;
 		}
 	</style>
-	<? endif; ?>
+	<?php endif; ?>
 
 	<div class="cheffism-apod__video-wrap">
 		<?php
@@ -43,9 +43,9 @@ if ( strpos( $picture_url, '/embed' ) ) {
 						'frameborder'     => array(),
 						'allowfullscreen' => array(),
 						'allow'           => array(),
-					)
+					),
 				)
 			);
-		?>
+			?>
 	</div>
 </div>
