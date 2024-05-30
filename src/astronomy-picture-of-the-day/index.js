@@ -1,19 +1,17 @@
-import AstronomyPictureEdit from './components/AstronomyPictureEdit';
+import AstronomyPictureEdit from "./components/AstronomyPictureEdit";
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 
-registerBlockType(
-	'cheffism/astronomy-picture-of-the-day',
-	{
-		title: __( 'NASA Astronomy Picture of the Day', 'astronomy-picture-of-the-day' ),
-		description: __( 'A block that will let you display NASA\'s Astronomy Picture of the Day on your website.', 'astronomy-picture-of-the-day' ),
-		category: 'widgets',
-		edit: props => {
-			return (
-				<AstronomyPictureEdit />
-			)
-		},
-		save: () => null,
-	}
-);
+registerBlockType("cheffism/astronomy-picture-of-the-day", {
+	title: __("NASA Astronomy Picture of the Day", "cheffism-apod"),
+	description: __(
+		"A block that will let you display NASA's Astronomy Picture of the Day on your website.",
+		"cheffism-apod",
+	),
+	category: "widgets",
+	edit: (props) => {
+		return <AstronomyPictureEdit />;
+	},
+	save: () => null,
+});

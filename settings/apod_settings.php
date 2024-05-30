@@ -11,8 +11,8 @@
  * @return void
  */
 function create_apod_settings_menu() {
-	$page_title = esc_html__( 'Astronomy Picture of the Day', 'astronomy-picture-of-the-day' );
-	$menu_title = esc_html__( 'APOD Settings', 'astronomy-picture-of-the-day' );
+	$page_title = esc_html__( 'Astronomy Picture of the Day', 'cheffism-apod' );
+	$menu_title = esc_html__( 'APOD Settings', 'cheffism-apod' );
 	$capability = 'manage_options';
 	$slug       = 'apod_fields';
 	$callback   = 'render_apod_settings_page';
@@ -30,14 +30,14 @@ function register_apod_settings() {
 
 	add_settings_section(
 		'apod_api_settings',
-		esc_html__( 'API Settings', 'astronomy-picture-of-the-day' ),
+		esc_html__( 'API Settings', 'cheffism-apod' ),
 		'render_apod_api_settings_section',
 		'apod_fields'
 	);
 
 	add_settings_field(
 		'apod_api_key',
-		esc_html__( 'API Key', 'astronomy-picture-of-the-day' ),
+		esc_html__( 'API Key', 'cheffism-apod' ),
 		'render_apod_api_key_field',
 		'apod_fields',
 		'apod_api_settings'
@@ -58,7 +58,7 @@ function render_apod_settings_page() {
 
 	<div class="wrap">
 		<h1>
-			<?php esc_html_e( 'Astronomy Picture of the Day Settings', 'astronomy-picture-of-the-day' ); ?>
+			<?php esc_html_e( 'Astronomy Picture of the Day Settings', 'cheffism-apod' ); ?>
 		</h1>
 		<form method="post" action="options.php">
 			<?php
@@ -84,7 +84,7 @@ function render_apod_api_settings_section() {
 		<?php
 			/* translators: The wildcard will render to an anchor tag that will link to the NASA website. */
 			printf(
-				esc_html__( 'You can read more about the restrictions for the API, as well as register for an API key, at %1$s.', 'astronomy-picture-of-the-day' ),
+				esc_html__( 'You can read more about the restrictions for the API, as well as register for an API key, at %1$s.', 'cheffism-apod' ),
 				$link_html
 			);
 		?>

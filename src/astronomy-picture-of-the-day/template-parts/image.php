@@ -7,6 +7,6 @@
 
 ?>
 
-<p class="astronomy-picture-of-the-day">
+<p class="cheffism-apod">
 	<img src="<?php echo esc_url( $picture_url ); ?>" alt="" />
 </p>

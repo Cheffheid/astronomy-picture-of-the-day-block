@@ -14,16 +14,16 @@ if ( strpos( $picture_url, '/embed' ) ) {
 	$youtube_embed = wp_oembed_get( $picture_url );
 }
 ?>
-<div class="astronomy-picture-of-the-day">
+<div class="cheffism-apod">
 	<?php if ( $manual_embed ) : ?>
 	<style>
-		.astronomy-picture-of-the-day__video-wrap {
+		.cheffism-apod__video-wrap {
 			overflow: hidden;
 			position: relative;
 			padding-bottom: 56.25%; /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */
 		}
 
-		.astronomy-picture-of-the-day__video-wrap iframe {
+		.cheffism-apod__video-wrap iframe {
 			height: 100%;
 			left: 0;
 			position: absolute;
@@ -33,7 +33,7 @@ if ( strpos( $picture_url, '/embed' ) ) {
 	</style>
 	<? endif; ?>
 
-	<div class="astronomy-picture-of-the-day__video-wrap">
+	<div class="cheffism-apod__video-wrap">
 		<?php
 			echo wp_kses(
 				$youtube_embed,
