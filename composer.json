@@ -17,5 +17,11 @@
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
     }
+  },
+  "scripts": {
+    "format": "phpcbf --report=summary,source",
+    "lint": "phpcs . --report=code",
+    "report": "phpcs --report=info",
+    "pot": "wp i18n make-pot . build/languages/ct.pot --exclude=node_modules,vendor,build --allow-root"
   }
 }
