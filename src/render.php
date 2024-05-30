@@ -14,12 +14,9 @@ if ( is_wp_error( $picture_data ) ) {
 }
 
 // Use the SD version by default.
-$picture_url = $picture_data->url;
+$picture_url        = $picture_data->url;
+$media_include_file = __DIR__ . '/template-parts/' . $picture_data->media_type . '.php';
 
-if ( 'video' === $picture_data->media_type ) {
-	require __DIR__ . '/template-parts/youtube-video.php';
-}
-
-if ( 'image' === $picture_data->media_type ) {
-	require __DIR__ . '/template-parts/image.php';
+if ( file_exists( $media_include_file ) ) {
+	require $media_include_file;
 }
