@@ -29,10 +29,12 @@ export default function Edit() {
 	const [pictureURL, setpictureURL] = useState("");
 	const [mediaType, setMediaType] = useState("image");
 
-	getPictureOfTheDay(apod.api_key).then((pictureData) => {
-		setpictureURL(pictureData.url);
-		setMediaType(pictureData.media_type);
-	});
+	if (!pictureURL) {
+		getPictureOfTheDay(apod.api_key).then((pictureData) => {
+			setpictureURL(pictureData.url);
+			setMediaType(pictureData.media_type);
+		});
+	}
 
 	let blockContent = <Spinner />;
 
