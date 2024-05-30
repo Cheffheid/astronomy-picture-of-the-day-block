@@ -1,6 +1,6 @@
 {
   "name": "cheffism-astronomy-picture-of-the-day",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A block for WordPress that will let you display NASA's Astronomy Picture of the Day on your website.",
   "main": "src/index.js",
   "scripts": {
