@@ -14,6 +14,10 @@
     "color": {
       "background": true,
       "text": false
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
     }
   },
   "attributes": {
