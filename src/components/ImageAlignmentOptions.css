@@ -1,0 +1,4 @@
+.custom-image-alignment-menu .is-active .dashicon {
+	background-color: var(--wp-components-color-foreground, #1e1e1e);
+	color: var(--wp-components-color-background, #fff);
+}
