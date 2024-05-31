@@ -14,8 +14,13 @@
     "color": {
       "background": true,
       "text": false
-    },
-    "layout": true
+    }
+  },
+  "attributes": {
+    "imageAlignment": {
+      "type": "string",
+      "default": "left"
+    }
   },
   "textdomain": "cheffism-apod",
   "editorScript": "file:./index.js",

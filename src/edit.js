@@ -17,6 +17,8 @@ import { useState, useEffect } from "@wordpress/element";
 
 import getPictureOfTheDay from "./api";
 
+import ImageAlignmentOptions from "./components/ImageAlignmentOptions";
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -25,7 +27,7 @@ import getPictureOfTheDay from "./api";
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit(props) {
 	const [pictureData, setPictureData] = useState({
 		copyright: "",
 		date: "",
@@ -37,6 +39,9 @@ export default function Edit() {
 		url: "",
 		isLoading: true,
 	});
+
+	const blockProps = useBlockProps();
+	const { imageAlignment } = props.attributes;
 
 	useEffect(() => {
 		getPictureOfTheDay().then((imageData) => {
@@ -67,12 +72,15 @@ export default function Edit() {
 			);
 		} else {
 			blockContent = (
-				<p class="cheffism-apod">
-					<img src={pictureData.url} alt="" />
-				</p>
+				<>
+					<ImageAlignmentOptions {...props} />
+					<p class={`cheffism-apod align${imageAlignment}`}>
+						<img src={pictureData.url} alt="" />
+					</p>
+				</>
 			);
 		}
 	}
 
-	return <section {...useBlockProps()}>{blockContent}</section>;
+	return <section {...blockProps}>{blockContent}</section>;
 }
