@@ -41,19 +41,27 @@ export default function Edit() {
 	if (pictureURL) {
 		if ("vide0" === mediaType) {
 			blockContent = (
-				<iframe
-					src={pictureURL}
-					width="610"
-					height="343"
-					frameborder="0"
-					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen
-				></iframe>
+				<div class="cheffism-apod">
+					<div class="cheffism-apod__video-wrap">
+						<iframe
+							src={pictureURL}
+							width="610"
+							height="343"
+							frameborder="0"
+							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen
+						></iframe>
+					</div>
+				</div>
 			);
 		} else {
-			blockContent = <img src={pictureURL} alt="" />;
+			blockContent = (
+				<p class="cheffism-apod">
+					<img src={pictureURL} alt="" />
+				</p>
+			);
 		}
 	}
 
-	return <p {...useBlockProps()}>{blockContent}</p>;
+	return <section {...useBlockProps()}>{blockContent}</section>;
 }
