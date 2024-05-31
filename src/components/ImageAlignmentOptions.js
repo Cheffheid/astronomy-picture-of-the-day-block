@@ -24,6 +24,11 @@ const ImageAlignmentOptions = (props) => {
 			label: __("Right", "cheffism-apod"),
 			icon: "align-right",
 		},
+		{
+			key: "full",
+			label: __("Full Width", "cheffism-apod"),
+			icon: "align-full-width",
+		},
 	];
 
 	return (
