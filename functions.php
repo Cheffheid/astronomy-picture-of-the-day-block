@@ -30,7 +30,12 @@ function retrieve_astronomy_picture_of_the_day() {
  * @return WPError|Object Returns a WP_Error with API error details, or an object with all the API data.
  */
 function retrieve_astronomy_picture_of_the_day_api_data() {
-	$api_key    = 'DEMO_KEY';
+	$api_key = get_option( 'apod_api_key' );
+
+	if ( ! $api_key ) {
+		return new \WP_Error( 403, esc_html__( 'This block requires an API key to be set up. Please ensure that you have one set up on the settings page.', 'cheffism-apod' ) );
+	}
+
 	$remote_url = 'https://api.nasa.gov/planetary/apod?api_key=' . $api_key;
 
 	$response      = wp_remote_get( $remote_url );
@@ -53,19 +58,4 @@ function retrieve_astronomy_picture_of_the_day_api_data() {
  */
 function save_astronomy_picture_of_the_day_api_data( $api_data ) {
 	set_transient( 'apod-' . $api_data->date, $api_data, 24 * HOUR_IN_SECONDS );
-}
-
-/**
- * Check if a URL is a YouTube URL.
- *
- * @param string $url URL string.
- * @return Boolean Returns true if the string contains youtube.com.
- */
-function is_youtube_url( $url = '' ) {
-
-	if ( ! $url || empty( $url ) ) {
-		return false;
-	}
-
-	return preg_match( '#^https?://(?:www\.)?youtube.com#', $url );
 }

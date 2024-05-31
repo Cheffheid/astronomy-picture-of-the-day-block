@@ -18,6 +18,7 @@ defined( 'ABSPATH' ) || exit;
 
 require plugin_dir_path( __FILE__ ) . 'functions.php';
 require plugin_dir_path( __FILE__ ) . 'settings/apod-settings.php';
+require plugin_dir_path( __FILE__ ) . 'api/astronomy-photo-of-the-day-api-handler.php';
 
 /**
  * Registers the block with the block.json in the /build folder.
@@ -27,14 +28,5 @@ require plugin_dir_path( __FILE__ ) . 'settings/apod-settings.php';
  */
 function register_apod_block() {
 	register_block_type( __DIR__ . '/build' );
-
-	wp_localize_script(
-		'cheffism-astronomy-picture-of-the-day-editor-script',
-		'apod',
-		array(
-			'api_key'       => get_option( 'apod_api_key' ),
-			'api_key_error' => esc_html__( 'This block requires an API key to be set up. Please ensure that you have one set up on the settings page.', 'cheffism-apod' ),
-		)
-	);
 }
 add_action( 'init', __NAMESPACE__ . '\register_apod_block' );
