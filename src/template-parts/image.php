@@ -8,5 +8,9 @@
 ?>
 
 <p class="cheffism-apod">
-	<img src="<?php echo esc_url( $picture_url ); ?>" alt="" />
+	<img
+		class="cheffism-apod__image"
+		src="<?php echo esc_url( $picture_url ); ?>"
+		alt=""
+	/>
 </p>
