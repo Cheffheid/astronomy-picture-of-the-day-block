@@ -1,3 +1,17 @@
+.wp-block-cheffism-astronomy-picture-of-the-day {
+
+	.cheffism-apod {
+
+		&.aligncenter {
+			text-align: center;
+		}
+
+		&.alignright {
+			text-align: right;
+		}
+	}
+}
+
 .cheffism-apod__video-wrap.manual-embed {
 	overflow: hidden;
 	position: relative;
