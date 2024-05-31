@@ -13,7 +13,7 @@ import { __ } from "@wordpress/i18n";
  */
 import { useBlockProps } from "@wordpress/block-editor";
 import { Spinner } from "@wordpress/components";
-import { useState } from "@wordpress/element";
+import { useState, useEffect } from "@wordpress/element";
 
 import getPictureOfTheDay from "./api";
 
@@ -26,25 +26,36 @@ import getPictureOfTheDay from "./api";
  * @return {Element} Element to render.
  */
 export default function Edit() {
-	const [pictureURL, setpictureURL] = useState("");
-	const [mediaType, setMediaType] = useState("image");
+	const [pictureData, setPictureData] = useState({
+		copyright: "",
+		date: "",
+		explanation: "",
+		hdurl: "",
+		media_type: "",
+		service_version: "",
+		title: "",
+		url: "",
+		isLoading: true,
+	});
 
-	if (!pictureURL) {
-		getPictureOfTheDay(apod.api_key).then((pictureData) => {
-			setpictureURL(pictureData.url);
-			setMediaType(pictureData.media_type);
+	useEffect(() => {
+		getPictureOfTheDay().then((imageData) => {
+			setPictureData({
+				isLoading: false,
+				...imageData,
+			});
 		});
-	}
+	}, []);
 
 	let blockContent = <Spinner />;
 
-	if (pictureURL) {
-		if ("vide0" === mediaType) {
+	if (!pictureData.isLoading) {
+		if ("video" === pictureData.media_type) {
 			blockContent = (
 				<div class="cheffism-apod">
 					<div class="cheffism-apod__video-wrap">
 						<iframe
-							src={pictureURL}
+							src={pictureData.url}
 							width="610"
 							height="343"
 							frameborder="0"
@@ -57,7 +68,7 @@ export default function Edit() {
 		} else {
 			blockContent = (
 				<p class="cheffism-apod">
-					<img src={pictureURL} alt="" />
+					<img src={pictureData.url} alt="" />
 				</p>
 			);
 		}

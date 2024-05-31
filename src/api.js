@@ -1,13 +1,12 @@
+import apiFetch from "@wordpress/api-fetch";
+
 /**
- * Retrieve the Astronomy Picture of the Day in HD.
- *
- * @param {string} apiKey NASA API Key. Register at https://api.nasa.gov/.
+ * Retrieve the Astronomy Picture of the Day data.
  */
-const getPictureOfTheDay = async (apiKey) => {
-	const response = await fetch(
-		`https://api.nasa.gov/planetary/apod?api_key=${apiKey}`,
-	);
-	const imageData = await response.json();
+const getPictureOfTheDay = async () => {
+	const imageData = await apiFetch({
+		path: "cheffism/v1/apod",
+	});
 
 	return imageData;
 };
