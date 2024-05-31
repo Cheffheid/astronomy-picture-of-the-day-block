@@ -10,7 +10,12 @@
   "example": {},
   "supports": {
     "html": false,
-    "align": true
+    "align": true,
+    "color": {
+      "background": true,
+      "text": false
+    },
+    "layout": true
   },
   "textdomain": "cheffism-apod",
   "editorScript": "file:./index.js",
