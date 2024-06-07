@@ -18,7 +18,9 @@ function retrieve_astronomy_picture_of_the_day() {
 	$apod_transient = get_transient( 'apod-' . $today );
 
 	if ( ! $apod_transient ) {
-		return retrieve_astronomy_picture_of_the_day_api_data();
+		$api_key = get_option( 'apod_api_key' );
+
+		return retrieve_astronomy_picture_of_the_day_api_data( $api_key );
 	}
 
 	return $apod_transient;
@@ -27,10 +29,10 @@ function retrieve_astronomy_picture_of_the_day() {
 /**
  * Retrieve the picture of the day data from the API and save the data to a transient.
  *
+ * @param string $api_key NASA API Key to use to make the API request.
  * @return Object|WPError Returns the API data from the NASA API, or a WP_Error if something went wrong.
  */
-function retrieve_astronomy_picture_of_the_day_api_data() {
-	$api_key = get_option( 'apod_api_key' );
+function retrieve_astronomy_picture_of_the_day_api_data( $api_key = '' ) {
 
 	if ( ! $api_key ) {
 		return new \WP_Error( 403, esc_html__( 'This block requires an API key to be set up. Please ensure that you have one set up on the settings page.', 'cheffism-apod' ) );
