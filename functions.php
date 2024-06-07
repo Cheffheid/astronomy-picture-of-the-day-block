@@ -11,7 +11,7 @@ namespace Cheffism\AstronomyPictureOfTheDay;
  * Retrieve the picture of the day data. This will either retrieve the data from the transient if it's set,
  * or retrieve fresh data from the API.
  *
- * @return WPError|Object Returns a WP_Error with API error details, or an object with all the API data.
+ * @return Object|WP_Error Returns the API data from a transient or the NASA API, or a WP_Error if something went wrong.
  */
 function retrieve_astronomy_picture_of_the_day() {
 	$today          = gmdate( 'Y-m-d' );
@@ -25,9 +25,9 @@ function retrieve_astronomy_picture_of_the_day() {
 }
 
 /**
- * Retrieve the picture of the day data from the API.
+ * Retrieve the picture of the day data from the API and save the data to a transient.
  *
- * @return WPError|Object Returns a WP_Error with API error details, or an object with all the API data.
+ * @return Object|WPError Returns the API data from the NASA API, or a WP_Error if something went wrong.
  */
 function retrieve_astronomy_picture_of_the_day_api_data() {
 	$api_key = get_option( 'apod_api_key' );
@@ -54,8 +54,14 @@ function retrieve_astronomy_picture_of_the_day_api_data() {
  * Save API response data to a transient for 24 hours.
  *
  * @param Object $api_data Object of API data that should be stored.
- * @return void
+ * @return boolean|WP_Error Returns true if set_transient was successful, WP_Error if it was not.
  */
 function save_astronomy_picture_of_the_day_api_data( $api_data ) {
-	set_transient( 'apod-' . $api_data->date, $api_data, 24 * HOUR_IN_SECONDS );
+	$data_saved = set_transient( 'apod-' . $api_data->date, $api_data, 24 * HOUR_IN_SECONDS );
+
+	if ( ! $data_saved ) {
+		return new \WP_Error( 500, esc_html__( 'Failed to set transient with API data.', 'cheffism-apod' ) );
+	}
+
+	return $data_saved;
 }
