@@ -40,7 +40,12 @@ function retrieve_astronomy_picture_of_the_day_api_data( $api_key = '' ) {
 
 	$remote_url = 'https://api.nasa.gov/planetary/apod?api_key=' . $api_key;
 
-	$response      = wp_remote_get( $remote_url );
+	$response = wp_remote_get( $remote_url );
+
+	if ( is_wp_error( $response ) ) {
+		return $response;
+	}
+
 	$response_body = json_decode( $response['body'] );
 
 	if ( 200 !== $response['response']['code'] ) {
