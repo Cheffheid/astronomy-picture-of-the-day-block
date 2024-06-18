@@ -64,37 +64,43 @@ export default function Edit(props) {
 	let blockContent = <Spinner />;
 
 	if (!pictureData.isLoading) {
-		console.log(pictureData);
 		if (errorMessage) {
 			blockContent = <p>{errorMessage}</p>;
 		} else {
-			if ("video" === pictureData.media_type) {
-				blockContent = (
-					<div class="cheffism-apod">
-						<div class="cheffism-apod__video-wrap">
-							<iframe
-								src={pictureData.url}
-								width="610"
-								height="343"
-								frameborder="0"
-								allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-								allowfullscreen
-							></iframe>
-						</div>
-					</div>
-				);
-			} else {
-				blockContent = (
-					<>
-						<ImageAlignmentOptions {...props} />
-						<p class={`cheffism-apod align${imageAlignment}`}>
-							<img src={pictureData.url} alt="" />
-						</p>
-					</>
-				);
-			}
+			blockContent = getBlockMarkup(pictureData, props);
 		}
 	}
 
 	return <section {...blockProps}>{blockContent}</section>;
+}
+
+function getBlockMarkup(pictureData, alignmentProps) {
+	if (
+		pictureData.hasProperty("media_type") &&
+		"video" === pictureData.media_type
+	) {
+		return (
+			<div class="cheffism-apod">
+				<div class="cheffism-apod__video-wrap">
+					<iframe
+						src={pictureData.url}
+						width="610"
+						height="343"
+						frameborder="0"
+						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					></iframe>
+				</div>
+			</div>
+		);
+	}
+
+	return (
+		<>
+			<ImageAlignmentOptions {...alignmentProps} />
+			<p class={`cheffism-apod align${imageAlignment}`}>
+				<img src={pictureData.url} alt="" />
+			</p>
+		</>
+	);
 }
