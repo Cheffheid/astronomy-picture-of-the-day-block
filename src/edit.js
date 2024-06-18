@@ -40,45 +40,59 @@ export default function Edit(props) {
 		isLoading: true,
 	});
 
+	const [errorMessage, setErrorMessage] = useState("");
+
 	const blockProps = useBlockProps();
 	const { imageAlignment } = props.attributes;
 
 	useEffect(() => {
-		getPictureOfTheDay().then((imageData) => {
-			setPictureData({
-				isLoading: false,
-				...imageData,
+		getPictureOfTheDay()
+			.then((imageData) => {
+				setPictureData({
+					isLoading: false,
+					...imageData,
+				});
+			})
+			.catch((errorResponse) => {
+				setErrorMessage(errorResponse.message);
+				setPictureData({
+					isLoading: false,
+				});
 			});
-		});
 	}, []);
 
 	let blockContent = <Spinner />;
 
 	if (!pictureData.isLoading) {
-		if ("video" === pictureData.media_type) {
-			blockContent = (
-				<div class="cheffism-apod">
-					<div class="cheffism-apod__video-wrap">
-						<iframe
-							src={pictureData.url}
-							width="610"
-							height="343"
-							frameborder="0"
-							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-							allowfullscreen
-						></iframe>
-					</div>
-				</div>
-			);
+		console.log(pictureData);
+		if (errorMessage) {
+			blockContent = <p>{errorMessage}</p>;
 		} else {
-			blockContent = (
-				<>
-					<ImageAlignmentOptions {...props} />
-					<p class={`cheffism-apod align${imageAlignment}`}>
-						<img src={pictureData.url} alt="" />
-					</p>
-				</>
-			);
+			if ("video" === pictureData.media_type) {
+				blockContent = (
+					<div class="cheffism-apod">
+						<div class="cheffism-apod__video-wrap">
+							<iframe
+								src={pictureData.url}
+								width="610"
+								height="343"
+								frameborder="0"
+								allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen
+							></iframe>
+						</div>
+					</div>
+				);
+			} else {
+				blockContent = (
+					<>
+						<ImageAlignmentOptions {...props} />
+						<p class={`cheffism-apod align${imageAlignment}`}>
+							<img src={pictureData.url} alt="" />
+						</p>
+					</>
+				);
+			}
 		}
 	}
 
